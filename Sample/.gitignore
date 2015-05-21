@@ -4,3 +4,6 @@ build
 .project
 .settings
 
+# Eclipse creates bin here when running apps:
+bin
+
