@@ -8,3 +8,10 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
+
+eclipse {
+  jdt {
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+  }
+}
