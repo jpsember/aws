@@ -11,3 +11,5 @@ scall("cp build/libs/Sample.war #{TOMCAT_DIR}/webapps")
 
 puts
 puts "Servlet can be found at: http://localhost:8080/Sample/SampleServlet"
+puts
+puts " (if not found, make sure tomcat is running; try 'catalina start')"
