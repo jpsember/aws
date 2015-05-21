@@ -9,7 +9,7 @@ public class SampleServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    mMessage = "Hello World";
+    mMessage = "This is com.js.sample.SampleServlet";
   }
 
   @Override
@@ -23,3 +23,4 @@ public class SampleServlet extends HttpServlet {
 
   private String mMessage;
 }
+
