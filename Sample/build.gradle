@@ -14,4 +14,8 @@ eclipse {
     sourceCompatibility = 1.6
     targetCompatibility = 1.6
   }
+  classpath {
+    // change default output from 'bin'
+    defaultOutputDir = file('.build-eclipse')
+  }
 }
