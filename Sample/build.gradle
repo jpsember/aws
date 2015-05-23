@@ -9,6 +9,8 @@ repositories {
 dependencies {
   testCompile group: 'junit', name: 'junit', version: '4.+'
   providedCompile 'javax.servlet:servlet-api:2.5'
+  compile 'commons-io:commons-io:2.2'
+  compile 'org.json:json:20141113'
 }
 
 eclipse {
