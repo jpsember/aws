@@ -16,17 +16,4 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-<!--  Add a second servlet for test purposes? -->
-
- <servlet>
-    <display-name>BetaServlet</display-name>
-    <servlet-name>BetaServlet</servlet-name>
-    <servlet-class>com.js.sample.BetaServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>BetaServlet</servlet-name>
-    <url-pattern>/Beta</url-pattern>
-  </servlet-mapping>
-
 </web-app>

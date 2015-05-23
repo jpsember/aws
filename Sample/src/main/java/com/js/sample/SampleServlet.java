@@ -10,31 +10,34 @@ import javax.servlet.http.*;
 public class SampleServlet extends HttpServlet {
 
   @Override
-  public void init() throws ServletException {
-    mMessage = "This is " + getServletDescription();
-  }
-
-  @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     response.setContentType("text/html");
 
-    PrintWriter out = response.getWriter();
-    out.println("<h1>" + mMessage + "</h1>");
+    PrintWriter w = response.getWriter();
+    w.println("<h1>" + "This is " + getServletDescription() + "</h1>");
+
+    // If this is the first request serviced by this servlet, emphasize that
+    // fact by printing something
+    synchronized (this) {
+      if (mInstanceCount++ == 0)
+        w.println("<h1>***************************</h1>");
+    }
   }
 
   private String getServletDescription() {
-    if (sConstructedMessage == null) {
+    if (mConstructedMessage == null) {
       Calendar cal = Calendar.getInstance();
       java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(
           "h:mm:ss");
       String strTime = simpleDateFormat.format(cal.getTime());
-      sConstructedMessage = this.getClass().getSimpleName() + " (time: "
+      mConstructedMessage = this.getClass().getSimpleName() + " (time: "
           + strTime + ")";
     }
-    return sConstructedMessage;
+    return mConstructedMessage;
   }
 
-  private static String sConstructedMessage;
-  private String mMessage;
+  private String mConstructedMessage;
+  private int mInstanceCount;
 }
