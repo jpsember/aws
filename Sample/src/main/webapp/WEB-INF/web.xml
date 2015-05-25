@@ -3,19 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-
-  <servlet>
-    <display-name>SampleServlet</display-name>
-    <servlet-name>SampleServlet</servlet-name>
-    <servlet-class>com.js.sample.SampleServlet</servlet-class>
-  </servlet>
-
-  <!-- use pattern '/' so no additional url elements required -->
-  <servlet-mapping>
-    <servlet-name>SampleServlet</servlet-name>
-    <url-pattern>/SampleServlet</url-pattern>
-  </servlet-mapping>
-
     <display-name>WicketExampleApp</display-name>
     <filter>
         <filter-name>WicketExampleApp</filter-name>
