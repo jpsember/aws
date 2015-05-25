@@ -2,12 +2,12 @@ package com.js.sample;
 
 import org.apache.wicket.protocol.http.WebApplication;
 
-public class WicketExampleApp extends WebApplication {
-  public WicketExampleApp() {
+public class OurApp extends WebApplication {
+  public OurApp() {
   }
 
   @Override
   public Class getHomePage() {
-    return HelloWorld.class;
+    return OurWebPage.class;
   }
 }
