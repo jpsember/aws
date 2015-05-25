@@ -2,6 +2,8 @@ package com.js.sample;
 
 import java.util.Calendar;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -31,9 +33,19 @@ public class OurWebPage extends WebPage {
       @Override
       public void onSubmit() {
         String value = (String) mUserIdModel.getObject();
-        mMessageModel.setObject(value);
+        mMessageModel.setObject("Logging in as: " + value);
       }
     });
+
+    AjaxLink mLogoutButton = new AjaxLink("logout_button") {
+      @Override
+      public void onClick(AjaxRequestTarget target) {
+        pr("clicked logout, target " + d(target));
+        if (target != null) {
+        }
+      }
+    };
+    add(mLogoutButton);
 
   }
 
