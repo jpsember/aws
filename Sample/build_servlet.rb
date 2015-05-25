@@ -7,12 +7,19 @@ WEBAPPS_DIR = File.join(TOMCAT_DIR,"webapps")
 
 die "No webapps directory at #{WEBAPPS_DIR}" if !File.directory?(WEBAPPS_DIR)
 
-puts "Building servlet .war file, copying to tomcat directory"
+puts "Building servlet .war file, copying to Tomcat directory"
 
 scall("gradle war -q")
 FileUtils.cp("build/libs/Sample.war",WEBAPPS_DIR)
 
 puts
-puts "Wicket example:   http://localhost:8080/Sample/WicketExampleApp"
+puts "Wicket example:             http://localhost:8080/Sample"
 puts
-puts " (if not found, make sure Tomcat is running; try 'catalina start')"
+puts " ...to monitor System.out:  tail -F ~/tomcat/logs/catalina.out &"
+
+# Restart Tomcat; clear log file
+scall("catalina stop",false)
+log_file = File.join(TOMCAT_DIR,"logs/catalina.out")
+FileUtils.rm_f(log_file)
+scall("catalina start")
+
