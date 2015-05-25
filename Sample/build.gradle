@@ -11,6 +11,7 @@ dependencies {
   providedCompile 'javax.servlet:servlet-api:2.5'
   compile 'commons-io:commons-io:2.2'
   compile 'org.json:json:20141113'
+  compile 'org.apache.wicket:wicket:7.0.0-M5'
 }
 
 eclipse {
@@ -22,4 +23,18 @@ eclipse {
     // change default output from 'bin'
     defaultOutputDir = file('.build-eclipse')
   }
+}
+
+// See: http://tobiasbayer.com/blog/2011/04/30/gradle-and-wicket/
+//
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/java'
+        }
+    }
 }

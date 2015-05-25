@@ -13,7 +13,21 @@
   <!-- use pattern '/' so no additional url elements required -->
   <servlet-mapping>
     <servlet-name>SampleServlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/SampleServlet</url-pattern>
   </servlet-mapping>
 
+    <display-name>WicketExampleApp</display-name>
+    <filter>
+        <filter-name>WicketExampleApp</filter-name>
+        <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+        <init-param>
+          <param-name>applicationClassName</param-name>
+          <param-value>com.js.sample.WicketExampleApp</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>WicketExampleApp</filter-name>
+     	<url-pattern>/WicketExampleApp</url-pattern>
+    </filter-mapping>
+    
 </web-app>

@@ -13,6 +13,7 @@ scall("gradle war -q")
 FileUtils.cp("build/libs/Sample.war",WEBAPPS_DIR)
 
 puts
-puts "Servlet can be found at: http://localhost:8080/Sample"
+puts "Servlet example:  http://localhost:8080/Sample/SampleServlet"
+puts "Wicket example:   http://localhost:8080/Sample/WicketExampleApp"
 puts
-puts " (if not found, make sure tomcat is running; try 'catalina start')"
+puts " (if not found, make sure Tomcat is running; try 'catalina start')"
