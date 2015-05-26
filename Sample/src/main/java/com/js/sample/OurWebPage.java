@@ -1,7 +1,5 @@
 package com.js.sample;
 
-import java.util.Calendar;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -17,8 +15,7 @@ import static com.js.basic.Tools.*;
 public class OurWebPage extends WebPage {
 
   public OurWebPage() {
-    clearConsole();
-
+    doNothing();
     mMessageModel = new Model();
     Label messageLabel = new Label("message", mMessageModel);
     add(messageLabel);
@@ -79,15 +76,6 @@ public class OurWebPage extends WebPage {
 
     add(mLogoutButton);
     mLogoutComponent = mLogoutButton;
-  }
-
-  private void clearConsole() {
-    Calendar cal = Calendar.getInstance();
-    java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(
-        "h:mm:ss");
-    pr("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStarting "
-        + this.getClass().getSimpleName() + " (time: "
-        + simpleDateFormat.format(cal.getTime()) + ")\n\n\n");
   }
 
   private void setMessage(AjaxRequestTarget target, String message) {

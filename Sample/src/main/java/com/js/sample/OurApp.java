@@ -1,5 +1,6 @@
 package com.js.sample;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class OurApp extends WebApplication {
 
   public OurApp() {
     doNothing();
+    clearConsole();
   }
 
   public static OurApp get() {
@@ -45,6 +47,15 @@ public class OurApp extends WebApplication {
     synchronized (sLoggedInUsersSet) {
       sLoggedInUsersSet.remove(userId);
     }
+  }
+
+  private void clearConsole() {
+    Calendar cal = Calendar.getInstance();
+    java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(
+        "h:mm:ss");
+    pr("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStarting "
+        + this.getClass().getSimpleName() + " (time: "
+        + simpleDateFormat.format(cal.getTime()) + ")\n\n\n");
   }
 
   private static Set<String> sLoggedInUsersSet = new HashSet();
