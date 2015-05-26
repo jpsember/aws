@@ -29,7 +29,7 @@ public class OurWebPage extends WebPage {
       @Override
       protected void onConfigure() {
         super.onConfigure();
-        boolean vis = !isUserLoggedIn(userId());
+        boolean vis = !OurSession.get().isLoggedIn();
         setVisible(vis);
       }
     };
@@ -62,7 +62,9 @@ public class OurWebPage extends WebPage {
     AjaxLink mLogoutButton = new AjaxLink("logout_button") {
       @Override
       public void onClick(AjaxRequestTarget target) {
-        setUserLoggedIn(userId(), false);
+        OurSession session = OurSession.get();
+        setUserLoggedIn(session.getUserId(), false);
+        session.logOut();
         mMessageModel.setObject("");
         if (target != null) {
           // TODO: why is this necessary?
@@ -74,7 +76,7 @@ public class OurWebPage extends WebPage {
       @Override
       protected void onConfigure() {
         super.onConfigure();
-        boolean vis = isUserLoggedIn(userId());
+        boolean vis = OurSession.get().isLoggedIn();
         setVisible(vis);
       }
     };
@@ -83,10 +85,6 @@ public class OurWebPage extends WebPage {
 
     add(mLogoutButton);
     mLogoutComponent = mLogoutButton;
-  }
-
-  private String userId() {
-    return (String) mUserIdModel.getObject();
   }
 
   private void clearConsole() {
@@ -105,6 +103,7 @@ public class OurWebPage extends WebPage {
   }
 
   private static boolean setUserLoggedIn(String userId, boolean loggedInState) {
+    OurSession.get().logIn(userId);
     synchronized (sLoggedInUsersSet) {
       if (!loggedInState)
         return sLoggedInUsersSet.remove(userId);
