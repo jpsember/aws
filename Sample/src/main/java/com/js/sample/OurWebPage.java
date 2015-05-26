@@ -53,8 +53,6 @@ public class OurWebPage extends WebPage {
         }
       }
     });
-    form.setOutputMarkupId(true); // Not sure required
-    form.setOutputMarkupPlaceholderTag(true);
 
     AjaxLink mLogoutButton = new AjaxLink("logout_button") {
       @Override
@@ -76,8 +74,6 @@ public class OurWebPage extends WebPage {
         setVisible(vis);
       }
     };
-    mLogoutButton.setOutputMarkupId(true); // Not sure required
-    mLogoutButton.setOutputMarkupPlaceholderTag(true);
 
     add(mLogoutButton);
     mLogoutComponent = mLogoutButton;
