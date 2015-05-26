@@ -20,8 +20,10 @@ public class OurWebPage extends WebPage {
     clearConsole();
 
     mMessageModel = new Model();
-    Label message = new Label("message", mMessageModel);
-    add(message);
+    Label messageLabel = new Label("message", mMessageModel);
+    add(messageLabel);
+    mMessageComponent = messageLabel;
+    mMessageComponent.setOutputMarkupId(true);
 
     Form form = new Form("login_form") {
       @Override
@@ -47,9 +49,9 @@ public class OurWebPage extends WebPage {
         if (value == null || value.isEmpty())
           return;
         if (!OurSession.get().logIn(value)) {
-          mMessageModel.setObject("User already logged in!");
+          setMessage(null, "User already logged in!");
         } else {
-          mMessageModel.setObject("Logged in as: " + value);
+          setMessage(null, "Logged in as: " + value);
         }
       }
     });
@@ -59,7 +61,7 @@ public class OurWebPage extends WebPage {
       public void onClick(AjaxRequestTarget target) {
         OurSession session = OurSession.get();
         session.logOut();
-        mMessageModel.setObject("");
+        setMessage(target, "");
         if (target != null) {
           // TODO: why is this necessary?
           target.add(mLoginComponent);
@@ -88,8 +90,18 @@ public class OurWebPage extends WebPage {
         + simpleDateFormat.format(cal.getTime()) + ")\n\n\n");
   }
 
+  private void setMessage(AjaxRequestTarget target, String message) {
+    if (message == null)
+      message = "";
+    mMessageModel.setObject(message);
+    if (target != null) {
+      target.add(mMessageComponent);
+    }
+  }
+
   private Model mMessageModel;
   private Model mUserIdModel;
   private Component mLogoutComponent;
   private Component mLoginComponent;
+  private Component mMessageComponent;
 }
