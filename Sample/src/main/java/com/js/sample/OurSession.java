@@ -19,13 +19,23 @@ public class OurSession extends WebSession implements Serializable {
   }
 
   public void logOut() {
+    OurApp.get().logOutUser(mUserId);
     mUserId = null;
   }
 
-  public void logIn(String userId) {
+  /**
+   * Attempt to log user in
+   * 
+   * @return true if successfully logged in; false if was already
+   */
+  public boolean logIn(String userId) {
     if (userId == null)
       die("null user");
-    mUserId = userId;
+    if (OurApp.get().logInUser(userId)) {
+      mUserId = userId;
+      return true;
+    }
+    return false;
   }
 
   public String getUserId() {
@@ -39,6 +49,11 @@ public class OurSession extends WebSession implements Serializable {
   public static OurSession get() {
     return (OurSession) Session.get();
   }
+
+  // Required for serialization to work properly across machines
+  // (even on my machine, viewing site from both Chrome and Safari was producing
+  // mismatches)
+  private static final long serialVersionUID = 42L;
 
   private String mUserId;
 }

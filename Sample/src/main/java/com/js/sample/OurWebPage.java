@@ -1,8 +1,6 @@
 package com.js.sample;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -30,7 +28,7 @@ public class OurWebPage extends WebPage {
       protected void onConfigure() {
         super.onConfigure();
         boolean vis = !OurSession.get().isLoggedIn();
-        setVisible(vis);
+        mLoginComponent.setVisible(vis);
       }
     };
     add(form);
@@ -48,11 +46,10 @@ public class OurWebPage extends WebPage {
         String value = (String) mUserIdModel.getObject();
         if (value == null || value.isEmpty())
           return;
-        if (isUserLoggedIn(value)) {
+        if (!OurSession.get().logIn(value)) {
           mMessageModel.setObject("User already logged in!");
         } else {
-          mMessageModel.setObject("Logging in as: " + value);
-          setUserLoggedIn(value, true);
+          mMessageModel.setObject("Logged in as: " + value);
         }
       }
     });
@@ -63,7 +60,6 @@ public class OurWebPage extends WebPage {
       @Override
       public void onClick(AjaxRequestTarget target) {
         OurSession session = OurSession.get();
-        setUserLoggedIn(session.getUserId(), false);
         session.logOut();
         mMessageModel.setObject("");
         if (target != null) {
@@ -95,24 +91,6 @@ public class OurWebPage extends WebPage {
         + this.getClass().getSimpleName() + " (time: "
         + simpleDateFormat.format(cal.getTime()) + ")\n\n\n");
   }
-
-  private static boolean isUserLoggedIn(String userId) {
-    synchronized (sLoggedInUsersSet) {
-      return sLoggedInUsersSet.contains(userId);
-    }
-  }
-
-  private static boolean setUserLoggedIn(String userId, boolean loggedInState) {
-    OurSession.get().logIn(userId);
-    synchronized (sLoggedInUsersSet) {
-      if (!loggedInState)
-        return sLoggedInUsersSet.remove(userId);
-      else
-        return !sLoggedInUsersSet.add(userId);
-    }
-  }
-
-  private static Set<String> sLoggedInUsersSet = new HashSet();
 
   private Model mMessageModel;
   private Model mUserIdModel;
