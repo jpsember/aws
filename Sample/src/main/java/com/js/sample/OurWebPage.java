@@ -1,7 +1,10 @@
 package com.js.sample;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebPage;
@@ -22,8 +25,18 @@ public class OurWebPage extends WebPage {
     Label message = new Label("message", mMessageModel);
     add(message);
 
-    Form form = new Form("login_form");
+    Form form = new Form("login_form") {
+      @Override
+      protected void onConfigure() {
+        super.onConfigure();
+        boolean vis = !isUserLoggedIn(userId());
+        setVisible(vis);
+      }
+    };
     add(form);
+    mLoginComponent = form;
+    mLoginComponent.setOutputMarkupId(true);
+    mLoginComponent.setOutputMarkupPlaceholderTag(true);
 
     mUserIdModel = new Model("");
     TextField idField = new TextField("user_id", mUserIdModel);
@@ -33,20 +46,47 @@ public class OurWebPage extends WebPage {
       @Override
       public void onSubmit() {
         String value = (String) mUserIdModel.getObject();
-        mMessageModel.setObject("Logging in as: " + value);
+        if (value == null || value.isEmpty())
+          return;
+        if (isUserLoggedIn(value)) {
+          mMessageModel.setObject("User already logged in!");
+        } else {
+          mMessageModel.setObject("Logging in as: " + value);
+          setUserLoggedIn(value, true);
+        }
       }
     });
+    form.setOutputMarkupId(true); // Not sure required
+    form.setOutputMarkupPlaceholderTag(true);
 
     AjaxLink mLogoutButton = new AjaxLink("logout_button") {
       @Override
       public void onClick(AjaxRequestTarget target) {
-        pr("clicked logout, target " + d(target));
+        setUserLoggedIn(userId(), false);
+        mMessageModel.setObject("");
         if (target != null) {
+          // TODO: why is this necessary?
+          target.add(mLoginComponent);
+          target.add(mLogoutComponent);
         }
       }
-    };
-    add(mLogoutButton);
 
+      @Override
+      protected void onConfigure() {
+        super.onConfigure();
+        boolean vis = isUserLoggedIn(userId());
+        setVisible(vis);
+      }
+    };
+    mLogoutButton.setOutputMarkupId(true); // Not sure required
+    mLogoutButton.setOutputMarkupPlaceholderTag(true);
+
+    add(mLogoutButton);
+    mLogoutComponent = mLogoutButton;
+  }
+
+  private String userId() {
+    return (String) mUserIdModel.getObject();
   }
 
   private void clearConsole() {
@@ -58,6 +98,25 @@ public class OurWebPage extends WebPage {
         + simpleDateFormat.format(cal.getTime()) + ")\n\n\n");
   }
 
+  private static boolean isUserLoggedIn(String userId) {
+    synchronized (sLoggedInUsersSet) {
+      return sLoggedInUsersSet.contains(userId);
+    }
+  }
+
+  private static boolean setUserLoggedIn(String userId, boolean loggedInState) {
+    synchronized (sLoggedInUsersSet) {
+      if (!loggedInState)
+        return sLoggedInUsersSet.remove(userId);
+      else
+        return !sLoggedInUsersSet.add(userId);
+    }
+  }
+
+  private static Set<String> sLoggedInUsersSet = new HashSet();
+
   private Model mMessageModel;
   private Model mUserIdModel;
+  private Component mLogoutComponent;
+  private Component mLoginComponent;
 }
