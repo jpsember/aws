@@ -6,3 +6,7 @@ build
 
 # Eclipse creates bin here when running apps:
 .build-eclipse
+
+# commit.rb cache
+.commit_cache
+
