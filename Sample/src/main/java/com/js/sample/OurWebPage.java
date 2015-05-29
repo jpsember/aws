@@ -53,7 +53,7 @@ public class OurWebPage extends WebPage {
       }
     });
 
-    AjaxLink mLogoutButton = new AjaxLink("logout_button") {
+    AjaxLink logoutLink = new AjaxLink("logout_button") {
       @Override
       public void onClick(AjaxRequestTarget target) {
         OurSession session = OurSession.get();
@@ -74,8 +74,8 @@ public class OurWebPage extends WebPage {
       }
     };
 
-    add(mLogoutButton);
-    mLogoutComponent = mLogoutButton;
+    add(logoutLink);
+    mLogoutComponent = logoutLink;
   }
 
   private void setMessage(AjaxRequestTarget target, String message) {
