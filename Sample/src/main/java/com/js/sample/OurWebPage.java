@@ -3,7 +3,6 @@ package com.js.sample;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -12,7 +11,7 @@ import org.apache.wicket.model.Model;
 
 import static com.js.basic.Tools.*;
 
-public class OurWebPage extends WebPage {
+public class OurWebPage extends BasePage {
 
   public OurWebPage() {
     doNothing();

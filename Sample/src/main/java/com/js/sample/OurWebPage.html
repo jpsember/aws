@@ -5,15 +5,26 @@
 </head>
 
 <body>
-	<form wicket:id="login_form">
-		<input wicket:id="user_id" type="text" /> 
-		<input wicket:id="login_button" type="submit" value="Log In" />
-	</form>
 
-	<p wicket:id="message"></p>
-	
-	<input type="button" wicket:id="logout_button" value="Log Out" />
-	
+	<p>This will not actually appear, since it's outside of the
+		wicket:extend tag.</p>
+
+	<wicket:extend>
+
+		<form wicket:id="login_form">
+			<input wicket:id="user_id" type="text" /> <input
+				wicket:id="login_button" type="submit" value="Log In" />
+		</form>
+
+		<p wicket:id="message"></p>
+
+		<input type="button" wicket:id="logout_button" value="Log Out" />
+
+	</wicket:extend>
+
+	<p>This will not actually appear, since it's outside of the
+		wicket:extend tag.</p>
+
 </body>
 
 </html>
