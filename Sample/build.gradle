@@ -6,12 +6,23 @@ repositories {
   mavenCentral()
 }
 
+def WICKET_VERSION = '6.16.0'
+def WBOOTSTRAP_VERSION = '0.9.6'
+
 dependencies {
   testCompile group: 'junit', name: 'junit', version: '4.+'
   providedCompile 'javax.servlet:servlet-api:2.5'
   compile 'commons-io:commons-io:2.2'
   compile 'org.json:json:20141113'
-  compile 'org.apache.wicket:wicket:7.0.0-M5'
+
+  compile "org.apache.wicket:wicket-core:$WICKET_VERSION"
+  compile "org.apache.wicket:wicket-extensions:6.16.0"
+
+  compile "de.agilecoders.wicket:wicket-bootstrap-core:$WBOOTSTRAP_VERSION"
+  compile "de.agilecoders.wicket:wicket-bootstrap-extensions:$WBOOTSTRAP_VERSION"
+  compile "de.agilecoders.wicket:wicket-bootstrap-themes:$WBOOTSTRAP_VERSION"
+
+  //compile "de.agilecoders.wicket:wicket-bootstrap-less:$WBOOTSTRAP_VERSION"
 }
 
 eclipse {
