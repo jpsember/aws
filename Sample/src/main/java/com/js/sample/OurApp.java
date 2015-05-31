@@ -14,6 +14,7 @@ import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import de.agilecoders.wicket.core.settings.IBootstrapSettings;
 import de.agilecoders.wicket.core.settings.ThemeProvider;
+import de.agilecoders.wicket.less.BootstrapLess;
 import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchTheme;
 import de.agilecoders.wicket.themes.markup.html.bootswatch.BootswatchThemeProvider;
 import static com.js.basic.Tools.*;
@@ -41,6 +42,7 @@ public class OurApp extends WebApplication {
     settings.setThemeProvider(themeProvider);
 
     Bootstrap.install(this, settings);
+    BootstrapLess.install(this);
   }
 
   public static OurApp get() {

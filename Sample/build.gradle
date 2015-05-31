@@ -22,7 +22,10 @@ dependencies {
   compile "de.agilecoders.wicket:wicket-bootstrap-extensions:$WBOOTSTRAP_VERSION"
   compile "de.agilecoders.wicket:wicket-bootstrap-themes:$WBOOTSTRAP_VERSION"
 
-  //compile "de.agilecoders.wicket:wicket-bootstrap-less:$WBOOTSTRAP_VERSION"
+  compile "de.agilecoders.wicket:wicket-bootstrap-less:$WBOOTSTRAP_VERSION"
+  compile "org.slf4j:slf4j-log4j12:1.6.4"
+  compile "log4j:log4j:1.2.16"
+
 }
 
 eclipse {
